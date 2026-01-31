@@ -1,0 +1,26 @@
+# Ignore everything in target EXCEPT the jar
+target/*
+!target/social-app-0.0.1-SNAPSHOT.jar
+
+# IDE files
+.idea/
+*.iml
+.vscode/
+
+# Git
+.git/
+.gitignore
+
+# OS files
+.DS_Store
+Thumbs.db
+
+# Logs
+*.log
+
+# Environment / secrets
+.env
+application-local.properties
+
+# Node (safe)
+node_modules/
