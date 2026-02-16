@@ -30,18 +30,28 @@ public class PostService {
     // CREATE POST
     public PostResponse createPost(String content, MultipartFile image) {
 
-        Object principal = SecurityContextHolder
-                .getContext()
-                .getAuthentication()
-                .getPrincipal();
+        var auth = SecurityContextHolder.getContext().getAuthentication();
+
+        System.out.println("Auth object: " + auth);
+
+        if (auth == null) {
+            throw new RuntimeException("Authentication is NULL");
+        }
+
+        Object principal = auth.getPrincipal();
+
+        System.out.println("Principal: " + principal);
 
         String email;
 
         if (principal instanceof org.springframework.security.core.userdetails.UserDetails userDetails) {
-            email = userDetails.getUsername(); // email
+            email = userDetails.getUsername();
         } else {
             email = principal.toString();
         }
+
+        System.out.println("Email: " + email);
+
 
         User user = userRepository.findByEmail(email)
                 .orElseThrow(() ->
