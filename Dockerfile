@@ -9,4 +9,8 @@ FROM eclipse-temurin:17-jdk
 WORKDIR /app
 COPY --from=build /app/target/*.jar app.jar
 EXPOSE 8080
-ENTRYPOINT ["java", "-Dspring.datasource.url=${SPRING_DATASOURCE_URL}", "-Dspring.datasource.username=${SPRING_DATASOURCE_USERNAME}", "-Dspring.datasource.password=${SPRING_DATASOURCE_PASSWORD}", "-Dspring.datasource.driver-class-name=com.mysql.cj.jdbc.Driver", "-jar", "app.jar"]
+ENTRYPOINT java -Dspring.datasource.url=$SPRING_DATASOURCE_URL \
+                -Dspring.datasource.username=$SPRING_DATASOURCE_USERNAME \
+                -Dspring.datasource.password=$SPRING_DATASOURCE_PASSWORD \
+                -Djwt.secret=$JWT_SECRET \
+                -jar app.jar
