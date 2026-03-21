@@ -7,6 +7,8 @@ pipeline {
         // DockerHub Credentials
         DOCKER_CREDENTIALS = credentials('dockerhub-creds')
 
+        JWT_SECRET = credentials('jwt-secret')
+
         // Cloudinary Secrets (Ensure these IDs match your Jenkins Credentials store)
         CLOUDINARY_CLOUD_NAME = credentials('cloudinary-cloud-name')
         CLOUDINARY_API_KEY    = credentials('cloudinary-api-key')
@@ -70,6 +72,7 @@ pipeline {
                           -e CLOUDINARY_CLOUD_NAME="${CLOUDINARY_CLOUD_NAME}" \
                           -e CLOUDINARY_API_KEY="${CLOUDINARY_API_KEY}" \
                           -e CLOUDINARY_API_SECRET="${CLOUDINARY_API_SECRET}" \
+                          -e JWT_SECRET="${JWT_SECRET}" \
                           ${DOCKER_IMAGE}:latest
                     '
                     """
